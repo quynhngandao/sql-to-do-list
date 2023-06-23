@@ -20,8 +20,32 @@ tasksRouter.get("/", (req, res) => {
     });
 });
 
-
 // POST
+tasksRouter.post("/", (req, res) => {
+  // set req.body
+  let task = req.body;
+  console.log("Inside POST, req.body: ", task);
+
+  let note = req.body.note;
+  let complete = req.body.complete;
+  let priority = req.body.priority;
+
+  // set queryText
+  // parameterization
+  let queryText = `INSERT INTO "tasks" ("note", "complete", "priority") VALUES ($1, $2, $3);`;
+  
+  // use pool
+  pool
+    .query(queryText, [note, complete, priority] )
+    .then((result) => {
+      console.log("Task added to database");
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(`Error making queryText: ${queryText}`, error);
+      res.sendStatus(500);
+    });
+});
 
 // PUT
 
