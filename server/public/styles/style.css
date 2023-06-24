@@ -1,49 +1,114 @@
 body {
-    background:  #000000;
-    color: #d3d3d3;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background: #000000;
+  color: #d3d3d3;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
 }
 header {
-    height: 200px;
-    margin-bottom: 20px;
-    background-image: url(https://i.pinimg.com/originals/9d/85/7e/9d857edb7f1ce6173fcc572403215853.gif);
+  height: 200px;
+  margin-bottom: 20px;
+  background-image: url(https://i.pinimg.com/originals/9d/85/7e/9d857edb7f1ce6173fcc572403215853.gif);
 }
 
+.gradient-text {
+  background: conic-gradient(
+    #CA4246 16.666%, 
+    #E16541 16.666%, 
+    #E16541 33.333%, 
+    #F18F43 33.333%, 
+    #F18F43 50%, 
+    #8B9862 50%, 
+    #8B9862 66.666%, 
+    #476098 66.666%, 
+    #476098 83.333%, 
+    #A7489B 83.333%
+  );
 
-h1, h2 {
-    color: #d3d3d3;
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 3px 3px 6px rgba(189, 179, 179, 0.8);
-    -webkit-text-stroke-width: 0.5px;
-    -webkit-text-stroke-color: rgb(106, 101, 101);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-fill-color: transparent;
+  background-size: 500% auto;
+  animation: textShine 3s ease-in-out infinite alternate;
+}
+@keyframes textShine {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
 }
 
 h1 {
-    font-size: 3em;
-    margin: 25px 0;
+  font-family: "Archivo Black", sans-serif;
+  font-weight: bold;
+  font-size: 6em;
+  text-align: center;
+  margin-bottom: 0;
+  margin-bottom: -0.25em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  width: 605px;
 }
 
 h3 {
-    color: #d3d3d3;
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 3px 3px 6px rgba(189, 179, 179, 0.8);
-    -webkit-text-stroke-width: 0.5px;
-    -webkit-text-stroke-color: rgb(106, 101, 101);
+  font-family: "Archivo Black", sans-serif;
+  font-size: 2em;
+  margin: 5px 0;
+  color: #ffffff;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 3px 3px 6px rgba(189, 179, 179, 0.8);
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(106, 101, 101);
 }
 
-h3 {
-    font-size: 2em;
-    margin: 25px 0;
-}
-
- .col-md-6{
-    max-width: 600px;
-    margin: auto;
+#not-complete {
+  max-width: 600x;
+  margin: auto;
 }
 
 #form-input {
-display: flex ;
-flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  margin-left: 15px;
+}
+input {
+  width: 21em;
+}
+
+.result {
+  margin-top: 20px;
+  color: black;
+  background-color: #ffffff;
+  margin-left: 15px;
+  border-radius: 5px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  height: 30px;
+  text-align: center;
+}
+
+button {
+  float: right;
+  border-radius: 5px;
+  margin-left: 5px;
+}
+
+.complete-button {
+  background-color: rgb(191, 244, 112);
+}
+.edit-button {
+  background-color: rgb(136, 136, 241);
+}
+.delete-button {
+  background-color: rgb(240, 78, 78);
 }
