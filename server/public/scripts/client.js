@@ -26,6 +26,21 @@ function getTask() {
     });
 }
 
+// POST 
+function postTask() {
+    let object = {
+        note: $('#task-input').val()
+    };
+    $.ajax({
+        method: "POST",
+        url:"/tasks",
+        data: object,
+    }).then((response) => {
+        $('#task-input').val("");
+        getTask();
+    });
+}
+
 // RENDER
 function renderTask(tasks) {
   // clear data before appending
@@ -34,14 +49,16 @@ function renderTask(tasks) {
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
     let row = $(`
-        <tr data-id = ${task.id}>
-      <th scope="row"></th>
-      <td>${task.note}</td>
-      <td>${task.complete}</td>
-      <td>${task.priority}</td>
-      <td><button class = "edit-button">Edit</button></td>
-    <td><button class = "delete-button">Delete</button></td>
-        </tr>
+    <div id="result">
+        <ul data-id = ${task.id}>
+  <p>${task.note}
+<button id="priority-button">‼️</button>
+  <button id="complete-button">☑</button>
+   <button id= "edit-button"> ✐ </button>
+  <button id= "delete-button"> ⅹ </button>
+  </p>
+        </ul>
+   </div>
     `);
     // append row 
     $("#result-div").append(row);
