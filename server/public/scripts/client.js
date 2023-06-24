@@ -10,6 +10,7 @@ $(document).ready(function () {
   // delete
   $("#result-div").on("click", ".delete-button", deleteTask);
   // update
+  $("#result-div").on("click", ".complete-button", completeTask);
 });
 
 // GET
@@ -90,6 +91,22 @@ function deleteTask() {
         console.log("Error in delete", error);
       });
   }
+}
+
+// PUT
+function completeTask() {
+  let taskToUpdate = $(this).parent().parent().data("id");
+  $.ajax({
+    method: "PUT",
+    url: `/tasks/${taskToUpdate}`,
+  })
+    .then((response) => {
+      console.log("Task is updated:", taskToUpdate);
+      getTask();
+    })
+    .catch((error) => {
+      console.log("Error with completing task", error);
+    });
 }
 
 // RENDER
