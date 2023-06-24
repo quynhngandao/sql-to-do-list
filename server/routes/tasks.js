@@ -1,3 +1,4 @@
+const { Router } = require("express");
 const express = require("express");
 const pool = require("../modules/pool");
 const tasksRouter = express.Router();
@@ -25,8 +26,6 @@ tasksRouter.post("/", (req, res) => {
   console.log("Inside POST, req.body: ", req.body);
 
   let note = req.body.note;
-  let complete = req.body.complete;
-  let priority = req.body.priority;
 
   // set queryText
   // parameterization
@@ -34,7 +33,7 @@ tasksRouter.post("/", (req, res) => {
 
   // use pool
   pool
-    .query(queryText, [note] )
+    .query(queryText, [note])
     .then((result) => {
       console.log("Task added to database");
       res.sendStatus(201);
@@ -48,6 +47,24 @@ tasksRouter.post("/", (req, res) => {
 // PUT
 
 // DELETE
+tasksRouter.delete("/:id", (req, res) => {
+  // set queryText
+  // parameterization
+  let taskToDelete = req.params.id;
+  let queryText = `DELETE FROM "tasks" WHERE id = $1;`;
+
+  // use pool
+  pool
+    .query(queryText, [taskToDelete])
+    .then((result) => {
+      console.log("Task successfully deleted");
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.log("Error making database query: ", error);
+      res.sendStatus(500);
+    });
+});
 
 // ORDER
 
