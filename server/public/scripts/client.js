@@ -8,12 +8,13 @@ $(document).ready(function () {
   // submit/post
   $("#submit-button").on("click", postTask);
   // delete
+  $("#result-div").on("click", ".delete-button", deleteTask);
   // update
 });
 
 // GET
 function getTask() {
-  console.log("In getTask");
+  // console.log("In getTask");
   $.ajax({
     method: "GET",
     url: "/tasks",
@@ -28,22 +29,67 @@ function getTask() {
 
 // POST
 function postTask() {
-    console.log(postTask)
-  let object = {
-    note: $("#taskInput").val()
+  // console.log("In postTask")
+  let TaskObject = {
+    note: $("#taskInput").val(),
   };
-  console.log('object', object)
+  console.log("object", TaskObject);
   $.ajax({
     method: "POST",
     url: "/tasks",
-    data: object,
-  }).then((response) => {
-    $("#taskInput").val("");
-    getTask();
-  }).catch((error) => {
-    console.log("Error in POST", error);
-    alert("Unable to add task");
+    data: TaskObject,
+  })
+    .then((response) => {
+      $("#taskInput").val("");
+      getTask();
+    })
+    .catch((error) => {
+      console.log("Error in POST", error);
+      alert("Unable to add task");
+    });
+}
+
+// DELETE
+function deleteTask() {
+  // console.log("In deleteTask")
+  let taskToDelete = $(this).parent().parent().data("id");
+
+  // sweetalert
+  $.getScript("https://cdn.jsdelivr.net/npm/sweetalert2@11", function () {
+    swal
+      .fire({
+        title: "Are you sure you want to delete this task?",
+        text: "You will not be able to reverse this action!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "Yes, DELETE",
+        cancelButtonText: "No, CANCEL",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          taskDelete();
+          swal.fire("Succeed");
+        } else {
+          swal.fire("Cancelled");
+        }
+      });
   });
+
+  // ajax taskDelete
+  function taskDelete() {
+    $.ajax({
+      method: "DELETE",
+      url: `/tasks/${taskToDelete}`,
+    })
+      .then((response) => {
+        console.log("Deleted task", response);
+        getTask();
+      })
+      .catch((error) => {
+        console.log("Error in delete", error);
+      });
+  }
 }
 
 // RENDER
@@ -54,16 +100,15 @@ function renderTask(tasks) {
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
     let row = $(`
-    <div id="result">
-<ul data-id = ${task.id}>
-  <p>${task.note}
-<button id="priority-button">‼️</button>
-  <button id="complete-button">☑</button>
-   <button id= "edit-button"> ✐ </button>
-  <button id= "delete-button"> ⅹ </button>
-  </p>
-        </ul>
-   </div>
+
+    <ul class="result" data-id = ${task.id}>
+        <li>${task.note}
+        <button class="delete-button">🗑️</button>
+            <button class = "complete-button">✅</button>
+            <button class = "edit-button">📝</button>
+        </li>
+    </ul>
+
     `);
     // append row
     $("#result-div").append(row);

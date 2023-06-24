@@ -33,7 +33,7 @@ tasksRouter.post("/", (req, res) => {
 
   // use pool
   pool
-    .query(queryText, [note])
+    .query(queryText, [note] )
     .then((result) => {
       console.log("Task added to database");
       res.sendStatus(201);
@@ -47,24 +47,21 @@ tasksRouter.post("/", (req, res) => {
 // PUT
 
 // DELETE
-tasksRouter.delete("/:id", (req, res) => {
-  // set queryText
-  // parameterization
-  let taskToDelete = req.params.id;
-  let queryText = `DELETE FROM "tasks" WHERE id = $1;`;
+tasksRouter.delete('/:id', (req, res) => {
+    // set queryText
+    // parameterization 
+    let taskToDelete = req.params.id;
+    let queryText = `DELETE FROM "tasks" WHERE id = $1;`;
 
-  // use pool
-  pool
-    .query(queryText, [taskToDelete])
-    .then((result) => {
-      console.log("Task successfully deleted");
-      res.sendStatus(200);
+    // use pool
+    pool.query(queryText, [taskToDelete]).then((result) => {
+console.log('Task successfully deleted');
+res.sendStatus(200);
+    }).catch((error) => {
+        console.log('Error making database query: ', error);
+        res.sendStatus(500);
     })
-    .catch((error) => {
-      console.log("Error making database query: ", error);
-      res.sendStatus(500);
-    });
-});
+})
 
 // ORDER
 
