@@ -6,7 +6,7 @@ $(document).ready(function () {
   // event listener
   getTask();
   // submit/post
-  //   $("#button-addon2").on("click", postMessage);
+  $("#submit-button").on("click", postTask);
   // delete
   // update
 });
@@ -26,19 +26,24 @@ function getTask() {
     });
 }
 
-// POST 
+// POST
 function postTask() {
-    let object = {
-        note: $('#task-input').val()
-    };
-    $.ajax({
-        method: "POST",
-        url:"/tasks",
-        data: object,
-    }).then((response) => {
-        $('#task-input').val("");
-        getTask();
-    });
+    console.log(postTask)
+  let object = {
+    note: $("#taskInput").val()
+  };
+  console.log('object', object)
+  $.ajax({
+    method: "POST",
+    url: "/tasks",
+    data: object,
+  }).then((response) => {
+    $("#taskInput").val("");
+    getTask();
+  }).catch((error) => {
+    console.log("Error in POST", error);
+    alert("Unable to add task");
+  });
 }
 
 // RENDER
@@ -50,7 +55,7 @@ function renderTask(tasks) {
     let task = tasks[i];
     let row = $(`
     <div id="result">
-        <ul data-id = ${task.id}>
+<ul data-id = ${task.id}>
   <p>${task.note}
 <button id="priority-button">‼️</button>
   <button id="complete-button">☑</button>
@@ -60,7 +65,7 @@ function renderTask(tasks) {
         </ul>
    </div>
     `);
-    // append row 
+    // append row
     $("#result-div").append(row);
   }
 }

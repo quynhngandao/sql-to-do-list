@@ -22,9 +22,7 @@ tasksRouter.get("/", (req, res) => {
 
 // POST
 tasksRouter.post("/", (req, res) => {
-  // set req.body
-  let task = req.body;
-  console.log("Inside POST, req.body: ", task);
+  console.log("Inside POST, req.body: ", req.body);
 
   let note = req.body.note;
   let complete = req.body.complete;
@@ -32,11 +30,11 @@ tasksRouter.post("/", (req, res) => {
 
   // set queryText
   // parameterization
-  let queryText = `INSERT INTO "tasks" ("note", "complete", "priority") VALUES ($1, $2, $3);`;
-  
+  let queryText = `INSERT INTO "tasks" ("note") VALUES ($1);`;
+
   // use pool
   pool
-    .query(queryText, [note, complete, priority] )
+    .query(queryText, [note] )
     .then((result) => {
       console.log("Task added to database");
       res.sendStatus(201);
