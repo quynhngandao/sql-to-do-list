@@ -64,6 +64,7 @@ function postTask() {
             .then((response) => {
               $("#taskInput").val("");
               getTask();
+              console.log("Added task");
             })
             .catch((error) => {
               console.log("Error in POST", error);
