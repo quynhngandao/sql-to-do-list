@@ -1,5 +1,3 @@
-console.log("JS");
-
 $(document).ready(function () {
   console.log("JQ");
 
@@ -8,24 +6,23 @@ $(document).ready(function () {
   // submit/post
   $("#submit-button").on("click", postTask);
   // delete
-  $("#result-div").on("click", ".delete-button", deleteTask);
+  $("#result-div").on("click", ".delete", deleteTask);
   // update
   $("#result-div").on("click", ".btn.btn-outline-primary", completeTask);
 });
 
-// global tasks
+// global tasks to set later as response
 let tasks = [];
 
 // GET
 function getTask() {
-  // console.log("In getTask");
   $.ajax({
     method: "GET",
     url: "/tasks",
   })
     .then((response) => {
-        // set global tasks to response 
-        let tasks = response
+      // set global tasks to response
+      let tasks = response;
       renderTask(tasks);
     })
     .catch((error) => {
@@ -35,7 +32,6 @@ function getTask() {
 
 // POST
 function postTask() {
-  // console.log("In postTask")
   // taskObject
   let TaskObject = {
     note: $("#taskInput").val(),
@@ -72,9 +68,7 @@ function postTask() {
               console.log("Error in POST", error);
               alert("Unable to add task");
             });
-          swal.fire(
-            "Task successfully added!"
-          );
+          swal.fire("Task successfully added!");
         } else {
           swal.fire("Action cancelled");
         }
@@ -84,7 +78,6 @@ function postTask() {
 
 // DELETE
 function deleteTask() {
-  // console.log("In deleteTask")
   let taskToDelete = $(this).parent().parent().data("id");
 
   // sweetalert
@@ -102,9 +95,9 @@ function deleteTask() {
       .then((result) => {
         if (result.isConfirmed) {
           taskDelete();
-          swal.fire("Succeed");
+          swal.fire("Action Successful");
         } else {
-          swal.fire("Cancelled");
+          swal.fire("Action cancelled");
         }
       });
   });
@@ -135,12 +128,11 @@ function completeTask() {
     .then((response) => {
       console.log("Task is updated:", taskToUpdate);
       $(this).addClass("clicked");
-       // Update the completion status in the task object
-       let task = tasks.find((task) => task.id === taskToUpdate);
-       if (task) {
-         task.completed = !task.completed;
-       }
-      
+      // Update the completion status in the task object
+      let task = tasks.find((task) => task.id === taskToUpdate);
+      if (task) {
+        task.completed = !task.completed;
+      }
     })
     .catch((error) => {
       console.log("Error with completing task", error);
@@ -154,17 +146,21 @@ function renderTask(tasks) {
 
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
-    let row = $(`
+    // Toggle button for complete
+    let buttonClass;
+    if (task.completed) {
+      buttonClass = "btn btn-outline-primary completed";
+    } else {
+      buttonClass = "btn btn-outline-primary";
+    }
 
-    <ul class="result" data-id="${task.id}">
-        <li>${task.note}
-          <button class="delete-button">🗑️</button>
-          <button type="button" class="btn btn-outline-primary ${
-            task.completed ? 'complete-button clicked' : 'complete-button'
-          }" data-bs-toggle="button" autocomplete="off">Complete</button>
-          <button class="edit-button">📝</button>
-        </li>
-      </ul>
+    let row = $(`
+    <div class="result" data-id=${task.id}>
+        <p class="gradient-text"><span>${task.note}</span>
+          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+          <button title="Complete" data-toggle="tooltip" type="button" class="${buttonClass}" data-bs-toggle="button" autocomplete="off">✔️</button>
+          </p>
+      </div>
 
     `);
     // append row
