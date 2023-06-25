@@ -9,6 +9,7 @@ $(document).ready(function () {
   $("#result-div").on("click", ".delete", deleteTask);
   // update
   $("#result-div").on("click", ".btn.btn-outline-primary", completeTask);
+  $('[data-toggle="tooltip"]').tooltip();
 });
 
 // global tasks to set later as response
