@@ -10,8 +10,11 @@ $(document).ready(function () {
   // delete
   $("#result-div").on("click", ".delete-button", deleteTask);
   // update
-  $("#result-div").on("click", ".complete-button", completeTask);
+  $("#result-div").on("click", ".btn.btn-outline-primary", completeTask);
 });
+
+// global tasks
+let tasks = [];
 
 // GET
 function getTask() {
@@ -21,7 +24,9 @@ function getTask() {
     url: "/tasks",
   })
     .then((response) => {
-      renderTask(response);
+        // set global tasks to response 
+        let tasks = response
+      renderTask(tasks);
     })
     .catch((error) => {
       console.log("Error in GET client", error);
@@ -31,23 +36,50 @@ function getTask() {
 // POST
 function postTask() {
   // console.log("In postTask")
+  // taskObject
   let TaskObject = {
     note: $("#taskInput").val(),
   };
-  console.log("object", TaskObject);
-  $.ajax({
-    method: "POST",
-    url: "/tasks",
-    data: TaskObject,
-  })
-    .then((response) => {
-      $("#taskInput").val("");
-      getTask();
-    })
-    .catch((error) => {
-      console.log("Error in POST", error);
-      alert("Unable to add task");
-    });
+
+  // sweetalert
+  $.getScript("https://cdn.jsdelivr.net/npm/sweetalert2@11", function () {
+    swal
+      .fire({
+        title: "Do you want to add the task?",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonColor: "#C64EB2",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes",
+        cancelButtonText: "No, cancel",
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          let TaskObject = {
+            note: $("#taskInput").val(),
+          };
+
+          $.ajax({
+            method: "POST",
+            url: "/tasks",
+            data: TaskObject,
+          })
+            .then((response) => {
+              $("#taskInput").val("");
+              getTask();
+            })
+            .catch((error) => {
+              console.log("Error in POST", error);
+              alert("Unable to add task");
+            });
+          swal.fire(
+            "Task successfully added!"
+          );
+        } else {
+          swal.fire("Action cancelled");
+        }
+      });
+  });
 }
 
 // DELETE
@@ -102,7 +134,13 @@ function completeTask() {
   })
     .then((response) => {
       console.log("Task is updated:", taskToUpdate);
-      getTask();
+      $(this).addClass("clicked");
+       // Update the completion status in the task object
+       let task = tasks.find((task) => task.id === taskToUpdate);
+       if (task) {
+         task.completed = !task.completed;
+       }
+      
     })
     .catch((error) => {
       console.log("Error with completing task", error);
@@ -118,13 +156,15 @@ function renderTask(tasks) {
     let task = tasks[i];
     let row = $(`
 
-    <ul class="result" data-id = ${task.id}>
+    <ul class="result" data-id="${task.id}">
         <li>${task.note}
-        <button class="delete-button">🗑️</button>
-            <button class = "complete-button">✅</button>
-            <button class = "edit-button">📝</button>
+          <button class="delete-button">🗑️</button>
+          <button type="button" class="btn btn-outline-primary ${
+            task.completed ? 'complete-button clicked' : 'complete-button'
+          }" data-bs-toggle="button" autocomplete="off">Complete</button>
+          <button class="edit-button">📝</button>
         </li>
-    </ul>
+      </ul>
 
     `);
     // append row

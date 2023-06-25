@@ -1,5 +1,5 @@
 body {
-  background: #000000;
+  /* background: #000000; */
   color: #d3d3d3;
   font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
     "Lucida Sans", Arial, sans-serif;
@@ -11,25 +11,19 @@ header {
 }
 
 .gradient-text {
-  background: conic-gradient(
-    #CA4246 16.666%, 
-    #E16541 16.666%, 
-    #E16541 33.333%, 
-    #F18F43 33.333%, 
-    #F18F43 50%, 
-    #8B9862 50%, 
-    #8B9862 66.666%, 
-    #476098 66.666%, 
-    #476098 83.333%, 
-    #A7489B 83.333%
+  background: linear-gradient(
+      to right,
+      #7953cd 20%,
+      #00affa 30%,
+      #0190cd 70%,
+      #764ada 80%
   );
-
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-fill-color: transparent;
   background-size: 500% auto;
-  animation: textShine 3s ease-in-out infinite alternate;
+  animation: textShine 5s ease-in-out infinite alternate;
 }
 @keyframes textShine {
   0% {
@@ -103,9 +97,10 @@ button {
   margin-left: 5px;
 }
 
-.complete-button {
+btn.btn-outline-primary.clicked {
   background-color: rgb(191, 244, 112);
 }
+
 .edit-button {
   background-color: rgb(136, 136, 241);
 }

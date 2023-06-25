@@ -8,7 +8,7 @@ const tasksRouter = express.Router();
 // GET
 tasksRouter.get("/", (req, res) => {
   // set queryText
-  let queryText = 'SELECT * FROM "tasks";';
+  let queryText = 'SELECT * FROM "tasks" ORDER BY "id" ;';
 
   // use pool
   pool
@@ -60,7 +60,6 @@ tasksRouter.put("/:id", (req, res) => {
     .query(queryText, [taskToUpdate])
     .then((result) => {
       console.log(`Task completed: ${taskToUpdate}`);
-      console.log(`Task uncompleted: ${taskToUpdate}`);
       res.sendStatus(200);
     })
     .catch((error) => {
