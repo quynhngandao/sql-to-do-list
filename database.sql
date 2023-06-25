@@ -4,6 +4,7 @@ CREATE TABLE "tasks" (
     "complete" boolean default false
 );
 
+-- TEST DATA 
 INSERT INTO "tasks" ("note", "complete")
 VALUES ('Wash the dishes', false), 
 ('Finish weekend challenge', false);
