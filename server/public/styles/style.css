@@ -1,8 +1,7 @@
 body {
-  /* background: #000000; */
+  background: #000000;
   color: #d3d3d3;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
+  font-family: "Archivo Black", sans-serif;
 }
 header {
   height: 200px;
@@ -12,11 +11,11 @@ header {
 
 .gradient-text {
   background: linear-gradient(
-      to right,
-      #7953cd 20%,
-      #00affa 30%,
-      #0190cd 70%,
-      #764ada 80%
+    to right,
+    #7953cd 20%,
+    #00affa 30%,
+    #0190cd 70%,
+    #764ada 80%
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -40,24 +39,14 @@ h1 {
   font-size: 6em;
   text-align: center;
   margin-bottom: 0;
-  margin-bottom: -0.25em;
+  margin-bottom: 0.2em;
   display: block;
   margin-left: auto;
   margin-right: auto;
   cursor: pointer;
   width: 605px;
-}
-
-h3 {
-  font-family: "Archivo Black", sans-serif;
-  font-size: 2em;
-  margin: 5px 0;
-  color: #ffffff;
-  text-align: center;
-  font-weight: bold;
-  text-shadow: 3px 3px 6px rgba(189, 179, 179, 0.8);
-  -webkit-text-stroke-width: 0.5px;
-  -webkit-text-stroke-color: rgb(106, 101, 101);
+  -webkit-text-stroke-width: 0.3px;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
 }
 
 #not-complete {
@@ -68,42 +57,21 @@ h3 {
 #form-input {
   display: flex;
   flex-direction: row;
-  margin-left: 15px;
 }
+
 input {
-  width: 21em;
+  width: 50em;
 }
 
 .result {
-  margin-top: 20px;
-  color: black;
-  background-color: #ffffff;
-  margin-left: 15px;
-  border-radius: 5px;
-}
-
-ul {
+  margin-top: 15px;
   list-style-type: none;
+  
 }
 
-li {
-  height: 30px;
-  text-align: center;
-}
-
-button {
+button, .delete {
   float: right;
   border-radius: 5px;
   margin-left: 5px;
-}
-
-btn.btn-outline-primary.clicked {
-  background-color: rgb(191, 244, 112);
-}
-
-.edit-button {
-  background-color: rgb(136, 136, 241);
-}
-.delete-button {
-  background-color: rgb(240, 78, 78);
+  padding-top: 5px;
 }
