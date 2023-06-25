@@ -9,11 +9,13 @@ $(document).ready(function () {
   $("#result-div").on("click", ".delete", deleteTask);
   // update
   $("#result-div").on("click", ".btn.btn-outline-primary", completeTask);
-  $('[data-toggle="tooltip"]').tooltip();
+// toggle tool
+$("body").tooltip({ selector: '[data-toggle=tooltip]' })
+
 });
 
 // global tasks to set later as response
-let tasks = [];
+let tasks;
 
 // GET
 function getTask() {
@@ -23,7 +25,7 @@ function getTask() {
   })
     .then((response) => {
       // set global tasks to response
-      let tasks = response;
+      tasks = response;
       renderTask(tasks);
     })
     .catch((error) => {
@@ -129,6 +131,7 @@ function completeTask() {
   })
     .then((response) => {
       console.log("Task is updated:", taskToUpdate);
+     // Completion status of the task 
       $(this).addClass("clicked");
       // Update the completion status in the task object
       let task = tasks.find((task) => task.id === taskToUpdate);
@@ -148,19 +151,19 @@ function renderTask(tasks) {
 
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
-    // Toggle button for complete
+    // complete
     let buttonClass;
     if (task.completed) {
       buttonClass = "btn btn-outline-primary completed";
     } else {
       buttonClass = "btn btn-outline-primary";
     }
-
+   
     let row = $(`
-    <div class="result" data-id=${task.id}>
+    <div class="result" data-id="${task.id}">
         <p class="gradient-text"><span>${task.note}</span>
           <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-          <button title="Complete" data-toggle="tooltip" type="button" class="${buttonClass}" data-bs-toggle="button" autocomplete="off">✔️</button>
+          <button class="${buttonClass}" data-bs-toggle="button" autocomplete="off">Done</button>
           </p>
       </div>
 
