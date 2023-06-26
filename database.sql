@@ -6,5 +6,5 @@ CREATE TABLE "tasks" (
 
 -- TEST DATA 
 INSERT INTO "tasks" ("note", "complete")
-VALUES ('Wash the dishes', false), 
-('Finish weekend challenge', false);
+VALUES ('Wash the dishes'), 
+('Finish weekend challenge');

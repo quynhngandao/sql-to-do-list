@@ -13,6 +13,7 @@ $(document).ready(function () {
 
   // Toggle tool for easier identification
   $("body").tooltip({ selector: "[data-toggle=tooltip]" });
+
 });
 
 // Global variable to store the tasks
@@ -27,6 +28,9 @@ function getTask() {
     .then((response) => {
       // Store tasks in the global variable
       tasks = response;
+
+      // IMPORTANT: prevent appaend 
+      localStorage.setItem("tasks", JSON.stringify(tasks));
 
       // Render the tasks on the page
       renderTask(tasks);
@@ -181,6 +185,7 @@ function deleteTask() {
 
 // PUT Task
 function completeTask() {
+
   // Retrieve data-id attribute from parent element of the clicked update button
   let taskToUpdate = $(this).parent().parent().data("id");
 
@@ -207,7 +212,7 @@ function completeTask() {
 
         // Same gist as delete but for update
         let task = tasks.find((task) => task.id === taskToUpdate);
-
+      
         if (task) {
           let row = $(`
             <div class="result" data-id="${task.id}">
@@ -220,6 +225,10 @@ function completeTask() {
           $("#notcomplete").append(row);
         }
       } else {
+
+        // Set time to current time for date completion 
+        let newTime = new Date().toLocaleString('en-US')
+
         // Update button being clicked again will no longer have class of "completed"
         $(this).removeClass("completed");
 
@@ -231,6 +240,7 @@ function completeTask() {
           let row = $(`
             <div class="result" data-id="${task.id}">
               <p class="gradient-text"><span>${task.note}</span>
+              <p class="gradient-text"><span> Completed on: ${newTime}</span>
               <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
               </p>
             </div>
