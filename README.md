@@ -3,7 +3,7 @@
 ## Description
 Duration: Weekend Project
 
-The goal of this project was to create a full-stack CRUD app that allows user to create Tasks for a to-do-list. The Tasks created from client are sent to server to be stored in the local database. The Tasks can be marked as 'Complete' or 'Delete', which will be updated in the database. Additional feature include popups that confirms action of users. 
+The goal of this project was to create a full-stack CRUD app that allows user to create Tasks for a to-do-list. The Tasks created from client are sent to server to be stored in the local database. The Tasks can be marked as 'Complete' and moved to completed list. The Tasks can also be 'Delete', which will be updated in the database as well. Additional feature include popups that confirms action of users. 
 
 ## Installation
 1. Simply download or clone this repository
@@ -15,7 +15,7 @@ The goal of this project was to create a full-stack CRUD app that allows user to
 5. Open a browser window and navigate to [http://localhost:5000/](http://localhost:5000/).
 
 ## Screen Shot
-![todolist gif](images/to-do-list.gif)
+![todolist gif](images/todolist.gif)
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/en/)

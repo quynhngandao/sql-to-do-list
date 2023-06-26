@@ -59,7 +59,8 @@ tasksRouter.put("/:id", (req, res) => {
     .query(queryText, [taskToUpdate])
     .then((result) => {
       console.log(`Task completed: ${taskToUpdate}`);
-      res.sendStatus(200);
+      // successful update
+      res.sendStatus(204);
     })
     .catch((error) => {
       console.log("Error making database query", error);
