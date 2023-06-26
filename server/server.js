@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 let tasksRouter = require("./routes/tasks");
 
 // PORT
-const PORT = process.env.DATABASE_URL
+const PORT = process.env.PORT || 5000;
 
 // use express
 const app = express();
