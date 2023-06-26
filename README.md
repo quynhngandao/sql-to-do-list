@@ -15,7 +15,7 @@ The goal of this project was to create a full-stack CRUD app that allows user to
 5. Open a browser window and navigate to [http://localhost:5000/](http://localhost:5000/).
 
 ## Screen Shot
-![todolist gif](images/to-do-list.gif)
+![todolist gif](images/todolist.gif)
 
 ### Prerequisites
 - [Node.js](https://nodejs.org/en/)
