@@ -160,7 +160,7 @@ function deleteTask() {
                 <p class="gradient-text">
                   <span>${task.note}</span>
                   <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                  <button class="${buttonClass}" title="Update" data-toggle="tooltip">Done</button>
+                  <button class="${buttonClass}" title="Complete" data-toggle="tooltip">Done</button>
                 </p>
               </div>
             `);
@@ -213,7 +213,7 @@ function completeTask() {
             <div class="result" data-id="${task.id}">
               <p class="gradient-text"><span>${task.note}</span>
                 <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                <button class="${buttonClass}" title="Update" data-toggle="tooltip"">Done</button>
+                <button class="${buttonClass}" title="Complete" data-toggle="tooltip"">Done</button>
               </p>
             </div>
           `);
@@ -268,7 +268,7 @@ function renderTask(tasks) {
       <div class="result" data-id="${task.id}">
         <p class="gradient-text"><span>${task.note}</span>
           <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-          <button class="${buttonClass}" title="Update" data-toggle="tooltip">Done</button>
+          <button class="${buttonClass}" title="Complete" data-toggle="tooltip">Done</button>
         </p>
       </div>
     `);
