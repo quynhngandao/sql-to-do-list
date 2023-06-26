@@ -5,6 +5,6 @@ CREATE TABLE "tasks" (
 );
 
 -- TEST DATA 
-INSERT INTO "tasks" ("note", "complete")
+INSERT INTO "tasks" ("note")
 VALUES ('Wash the dishes'), 
 ('Finish weekend challenge');
