@@ -29,9 +29,6 @@ function getTask() {
       // Store tasks in the global variable
       tasks = response;
 
-      // IMPORTANT: prevent appaend 
-      localStorage.setItem("tasks", JSON.stringify(tasks));
-
       // Render the tasks on the page
       renderTask(tasks);
     })
