@@ -1,6 +1,5 @@
-
 $(document).ready(function () {
-  // event listener
+  // Event listener
   getTask();
 
   // Submit/post button
@@ -13,11 +12,9 @@ $(document).ready(function () {
   // Update button
   $("#notcomplete, #complete").on("click", ".update", completeTask);
 
-
   // Toggle tool for easier identification
   $("body").tooltip({ selector: "[data-toggle=tooltip]" });
 });
-
 
 // Global variable to store the tasks
 let tasks;
@@ -64,6 +61,7 @@ function postTask() {
           // User input as object in sweetalert
           let TaskObject = {
             note: $("#taskInput").val(),
+            completed: false, // Set completed status to false initially
           };
 
           // POST ajax
@@ -74,7 +72,7 @@ function postTask() {
           })
             .then((response) => {
               // Clear the user input after input is accepted
-              // so new input can be enter without manually deleting
+              // so new input can be entered without manually deleting
               $("#taskInput").val("");
 
               // Get the updated task list
@@ -153,17 +151,13 @@ function completeTask() {
       const updatedTask = tasks.find((task) => task.id === taskToUpdate);
       updatedTask.completed = true;
 
-      // Remove the task from the "Not Complete" list
-      $(this).closest(".result").remove();
-
-      // Render the updated tasks, which will append the task to the "Complete" list
+      // Render the updated tasks, which will move the task to the "Complete" list
       renderTask(tasks);
     })
     .catch((error) => {
       console.log("Error with completing task", error);
     });
 }
-
 
 // RENDER Task
 function renderTask(tasks) {
@@ -173,33 +167,33 @@ function renderTask(tasks) {
 
   for (let i = 0; i < tasks.length; i++) {
     let task = tasks[i];
-
+    let newTime = new Date().toLocaleString("en-US");
     let buttonClass;
     if (task.completed) {
-      buttonClass = "update";
-
+      buttonClass = "update completed";
       let row = $(`
-          <div class="result" data-id="${task.id}">
-            <p class="gradient-text"><span>${task.note}</span>
-              <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-              <button class="${buttonClass}" title="Complete" data-toggle="tooltip">Done</button>
-            </p>
-          </div>
-        `);
+      <div class="result" data-id="${task.id}">
+        <p class="gradient-text"><span>${task.note}</span>
+        <p class="gradient-text"><span> Completed on: ${newTime}</span>
+        <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+          </p>
+      </div>
+    `);
 
       // Append to complete
       $("#complete").append(row);
+      
     } else {
-      buttonClass = "update completed";
+      buttonClass = "update";
 
       let row = $(`
-          <div class="result" data-id="${task.id}">
-            <p class="gradient-text"><span>${task.note}</span>
-              <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-              <button class="${buttonClass}" title="Complete" data-toggle="tooltip">Done</button>
-              </p>
-          </div>
-        `);
+      <div class="result" data-id="${task.id}">
+        <p class="gradient-text"><span>${task.note}</span>
+          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+          <button class="${buttonClass}" title="Complete" data-toggle="tooltip">Done</button>
+          </p>
+      </div>
+    `);
 
       // Append to not complete
       $("#notcomplete").append(row);
